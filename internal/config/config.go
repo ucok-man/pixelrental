@@ -2,16 +2,12 @@ package config
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/fatih/structs"
-	"github.com/joho/godotenv"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 )
-
-func init() {
-	godotenv.Load()
-}
 
 type externalcfg struct {
 	Xendit struct {
@@ -64,6 +60,7 @@ func New() (*Config, error) {
 	viper.SetDefault("API_PORT", 8080)
 	viper.SetDefault("ENVIRONMENT", "development")
 
+	viper.SetDefault("DB_DSN", os.Getenv("DB_DSN"))
 	viper.SetDefault("DB_MAX_OPEN_CONN", 25)
 	viper.SetDefault("DB_MAX_IDLE_CONN", 25)
 	viper.SetDefault("DB_MAX_IDLE_TIME", "15m")
@@ -78,15 +75,18 @@ func New() (*Config, error) {
 	viper.SetDefault("SMTP_PASSWORD", "6c22cf79f49adc")
 	viper.SetDefault("SMTP_SENDER", "Pixelrental <no-reply@pixelrental.support.net>")
 
+	viper.SetDefault("JWT_SECRET", os.Getenv("JWT_SECRET"))
+	viper.SetDefault("XENDIT_API_KEY", os.Getenv("XENDIT_API_KEY"))
+
 	viper.AutomaticEnv()
 	// viper.SetConfigType("env")
 	// viper.SetConfigName(".env")
 	// viper.AddConfigPath(".")
-	viper.SetConfigFile(".env")
+	// viper.SetConfigFile("env")
 
-	if err := viper.ReadInConfig(); err != nil {
-		return nil, err
-	}
+	// if err := viper.ReadInConfig(); err != nil {
+	// 	return nil, err
+	// }
 
 	if err := viper.Unmarshal(&cfg, func(dc *mapstructure.DecoderConfig) {
 		dc.IgnoreUntaggedFields = true

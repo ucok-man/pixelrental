@@ -5,7 +5,6 @@ import (
 
 	"github.com/ucok-man/pixelrental/api"
 	_ "github.com/ucok-man/pixelrental/docs"
-
 )
 
 // @title PixelRental API
