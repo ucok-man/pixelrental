@@ -1,0 +1,41 @@
+{{define "subject"}}Top up PixelRental saldo{{end}}
+
+{{define "plainBody"}}
+Hi,
+
+Thank you for making PixelRetal your trusted store for game rental!
+
+Below is the link to top up your saldo:
+
+Link: {{.InvoiceURL}}
+
+Please note that this link will expire in 24 hours
+We can't wait to make you poorer. So make sure to spend your money in our shop.
+
+Thanks,
+
+The PixelRental Team
+{{end}}
+
+{{define "htmlBody"}}
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <p>Hi,</p>
+    <p>Thank you for making PixelRetal your trusted store for game rental!</p>
+    <p>Below is the link to top up your saldo:</p>
+    <p>Link: <a href="{{.InvoiceURL}}">{{.InvoiceURL}}</a></p>
+    <p>Please note that this link will expire in 24 hours</p>
+    <p>We can't wait to make you poorer. So make sure to spend your money in our shop.</p>
+    <p>Thanks,</p>
+    <p>The PixelRental Team</p>
+</body>
+
+</html>
+{{end}}

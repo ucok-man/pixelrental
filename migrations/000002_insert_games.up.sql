@@ -1,0 +1,21 @@
+INSERT INTO "games" ("title", "description", "year", "genres", "price", "stock", "created_at", "version", "updated_at")
+VALUES
+    ('Assassin''s Creed Valhalla', 'An open-world action RPG set in the Viking Age.', 2020, ARRAY['Action', 'Adventure'], 10000, 100, NOW(), 1, NOW()),
+    ('The Witcher 3: Wild Hunt', 'An epic fantasy RPG based on Andrzej Sapkowski''s novels.', 2015, ARRAY['RPG', 'Fantasy'], 10000, 75, NOW(), 1, NOW()),
+    ('Portal 2', 'A mind-bending puzzle game with innovative mechanics.', 2011, ARRAY['Puzzle', 'Adventure'], 10000, 50, NOW(), 1, NOW()),
+    ('Red Dead Redemption 2', 'An action-adventure game set in the Wild West.', 2018, ARRAY['Action', 'Adventure'], 10000, 80, NOW(), 1, NOW()),
+    ('Hades', 'A roguelike action dungeon crawler with a gripping story.', 2020, ARRAY['Action', 'Roguelike'], 10000, 120, NOW(), 1, NOW()),
+    ('The Legend of Zelda: Breath of the Wild', 'An open-world adventure game in the Zelda series.', 2017, ARRAY['Adventure', 'Action'], 10000, 90, NOW(), 1, NOW()),
+    ('Celeste', 'A challenging platformer with a touching story.', 2018, ARRAY['Platformer', 'Indie'], 10000, 60, NOW(), 1, NOW()),
+    ('Overwatch', 'A team-based multiplayer shooter with unique heroes.', 2016, ARRAY['FPS', 'Multiplayer'], 10000, 110, NOW(), 1, NOW()),
+    ('Stardew Valley', 'A farming simulation RPG with relaxing gameplay.', 2016, ARRAY['Simulation', 'Indie'], 10000, 70, NOW(), 1, NOW()),
+    ('Super Mario Odyssey', 'A 3D platformer featuring Mario in a colorful adventure.', 2017, ARRAY['Platformer', 'Adventure'], 10000, 100, NOW(), 1, NOW()),
+    ('Cyberpunk 2077', 'A futuristic open-world RPG set in Night City.', 2020, ARRAY['RPG', 'Action'], 10000, 85, NOW(), 1, NOW()),
+    ('Among Us', 'A social deduction game involving teamwork and deceit.', 2018, ARRAY['Party', 'Indie'], 10000, 150, NOW(), 1, NOW()),
+    ('Death Stranding', 'An action game set in a post-apocalyptic world.', 2019, ARRAY['Adventure', 'Action'], 10000, 65, NOW(), 1, NOW()),
+    ('Minecraft', 'A sandbox game where players build and explore.', 2011, ARRAY['Sandbox', 'Indie'], 10000, 95, NOW(), 1, NOW()),
+    ('Genshin Impact', 'An open-world action RPG with elemental combat.', 2020, ARRAY['Action', 'Adventure'], 10000, 200, NOW(), 1, NOW()),
+    ('League of Legends', 'A popular multiplayer online battle arena game.', 2009, ARRAY['MOBA', 'Multiplayer'], 10000, 300, NOW(), 1, NOW()),
+    ('FIFA 22', 'A football simulation game with updated rosters.', 2021, ARRAY['Sports', 'Simulation'], 10000, 80, NOW(), 1, NOW()),
+    ('Call of Duty: Warzone', 'A free-to-play battle royale shooter game.', 2020, ARRAY['FPS', 'Battle Royale'], 0, 250, NOW(), 1, NOW()),
+    ('Terraria', 'An action-adventure sandbox game with crafting.', 2011, ARRAY['Sandbox', 'Adventure'], 10000, 120, NOW(), 1, NOW());
