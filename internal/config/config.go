@@ -4,9 +4,14 @@ import (
 	"fmt"
 
 	"github.com/fatih/structs"
+	"github.com/joho/godotenv"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 )
+
+func init() {
+	godotenv.Load()
+}
 
 type externalcfg struct {
 	Xendit struct {
@@ -73,10 +78,11 @@ func New() (*Config, error) {
 	viper.SetDefault("SMTP_PASSWORD", "6c22cf79f49adc")
 	viper.SetDefault("SMTP_SENDER", "Pixelrental <no-reply@pixelrental.support.net>")
 
-	viper.SetConfigType("env")
-	viper.SetConfigName(".env")
-	viper.AddConfigPath(".")
 	viper.AutomaticEnv()
+	// viper.SetConfigType("env")
+	// viper.SetConfigName(".env")
+	// viper.AddConfigPath(".")
+	viper.SetConfigFile(".env")
 
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, err
