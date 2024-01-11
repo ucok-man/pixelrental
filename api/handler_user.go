@@ -14,6 +14,19 @@ import (
 	"github.com/ucok-man/pixelrental/internal/repo"
 )
 
+// users godoc
+// @Tags users
+// @Summary Create user
+// @Description Create new user record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqUserRegister true "Create User"
+// @Success 202 {object} contract.ResUserRegister
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/register [post]
 func (app *Application) userRegisterHandler(ctx echo.Context) error {
 	var input contract.ReqUserRegister
 
@@ -68,6 +81,19 @@ func (app *Application) userRegisterHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusAccepted, response)
 }
 
+// users godoc
+// @Tags users
+// @Summary Resend activation token
+// @Description Resending new activation token user
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqUserReactivate true "Email User"
+// @Success 200 {object} contract.ResResendActivationToken
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/reactivated [post]
 func (app *Application) userResendActivationTokenHandler(ctx echo.Context) error {
 	var input contract.ReqUserReactivate
 
@@ -112,9 +138,22 @@ func (app *Application) userResendActivationTokenHandler(ctx echo.Context) error
 		Message: "an email will be sent to you containing activation instructions",
 	}
 
-	return ctx.JSON(http.StatusAccepted, response)
+	return ctx.JSON(http.StatusOK, response)
 }
 
+// users godoc
+// @Tags users
+// @Summary Activate user record
+// @Description Activate registered user record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqUserActivated true "Activation Token"
+// @Success 200 {object} contract.ResUserActivated
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/activated [post]
 func (app *Application) userActivatedHandler(ctx echo.Context) error {
 	var input contract.ReqUserActivated
 
@@ -142,7 +181,7 @@ func (app *Application) userActivatedHandler(ctx echo.Context) error {
 	if err != nil {
 		switch {
 		case errors.Is(err, repo.ErrEditConflict):
-			return app.ErrEditConflict(ctx, err)
+			// return app.ErrEditConflict(ctx, err)
 		default:
 			return app.ErrInternalServer(ctx, err)
 		}
@@ -158,9 +197,23 @@ func (app *Application) userActivatedHandler(ctx echo.Context) error {
 		return app.ErrInternalServer(ctx, err)
 	}
 
-	return ctx.JSON(http.StatusAccepted, response)
+	return ctx.JSON(http.StatusOK, response)
 }
 
+// users godoc
+// @Tags users
+// @Summary Login user
+// @Description Login user record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqUserLogin true "Login User"
+// @Success 200 {object} contract.ResUserLogin
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/login [post]
 func (app *Application) userLoginHandler(ctx echo.Context) error {
 	var input contract.ReqUserLogin
 
@@ -200,6 +253,21 @@ func (app *Application) userLoginHandler(ctx echo.Context) error {
 	return ctx.JSONPretty(http.StatusOK, response, "\t")
 }
 
+// users godoc
+// @Tags users
+// @Summary Deposit saldo user
+// @Description Top up saldo user record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqUserDeposit true "Deposit Saldo"
+// @Success 200 {object} contract.ResUserDeposit
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/deposit [post]
 func (app *Application) userDepositHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
@@ -244,6 +312,18 @@ func (app *Application) userDepositHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusAccepted, &response)
 }
 
+// users godoc
+// @Tags users
+// @Summary Get profile user
+// @Description Get info of login user
+// @Accept  json
+// @Produce json
+// @Success 200 {object} contract.ResUserDeposit
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /users/me [get]
 func (app *Application) userProfileHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 

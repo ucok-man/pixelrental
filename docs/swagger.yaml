@@ -1,0 +1,1423 @@
+basePath: /v1
+definitions:
+  contract.Metadata:
+    properties:
+      current_page:
+        type: integer
+      first_page:
+        type: integer
+      last_page:
+        type: integer
+      page_size:
+        type: integer
+      total_records:
+        type: integer
+    type: object
+  contract.ReqCartCreate:
+    properties:
+      game_id:
+        minimum: 1
+        type: integer
+      quantity:
+        minimum: 1
+        type: integer
+    required:
+    - game_id
+    - quantity
+    type: object
+  contract.ReqCartUpdate:
+    properties:
+      quantity:
+        minimum: 1
+        type: integer
+    required:
+    - quantity
+    type: object
+  contract.ReqOrderPay:
+    properties:
+      game_id:
+        type: integer
+      payment_method:
+        enum:
+        - ALFAMART
+        - INDOMARET
+        - OVO
+        - SALDO
+        type: string
+    required:
+    - payment_method
+    type: object
+  contract.ReqUserActivated:
+    properties:
+      activation_token:
+        maxLength: 26
+        minLength: 26
+        type: string
+    required:
+    - activation_token
+    type: object
+  contract.ReqUserDeposit:
+    properties:
+      amount:
+        minimum: 50000
+        type: number
+    required:
+    - amount
+    type: object
+  contract.ReqUserLogin:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  contract.ReqUserReactivate:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  contract.ReqUserRegister:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    required:
+    - address
+    - email
+    - first_name
+    - last_name
+    - password
+    - phone
+    type: object
+  contract.ResCartCreate:
+    properties:
+      cart:
+        properties:
+          cart_id:
+            type: integer
+          game_id:
+            type: integer
+          quantity:
+            type: integer
+          sub_total:
+            type: number
+        type: object
+      message:
+        type: string
+    type: object
+  contract.ResCartDelete:
+    properties:
+      cart:
+        properties:
+          cart_id:
+            type: integer
+          game_id:
+            type: integer
+          quantity:
+            type: integer
+          sub_total:
+            type: number
+        type: object
+      message:
+        type: string
+    type: object
+  contract.ResCartEstimate:
+    properties:
+      created_at:
+        type: string
+      order_details:
+        items:
+          properties:
+            game:
+              properties:
+                description:
+                  type: string
+                game_id:
+                  type: integer
+                genres:
+                  items:
+                    type: string
+                  type: array
+                price:
+                  type: number
+                title:
+                  type: string
+                year:
+                  type: integer
+              type: object
+            quantity:
+              type: integer
+            sub_total:
+              type: number
+          type: object
+        type: array
+      price_total:
+        type: number
+    type: object
+  contract.ResCartUpdate:
+    properties:
+      cart:
+        properties:
+          cart_id:
+            type: integer
+          game_id:
+            type: integer
+          quantity:
+            type: integer
+          sub_total:
+            type: number
+        type: object
+      message:
+        type: string
+    type: object
+  contract.ResGameGetAll:
+    properties:
+      games:
+        items:
+          properties:
+            description:
+              type: string
+            game_id:
+              type: integer
+            genres:
+              items:
+                type: string
+              type: array
+            price:
+              type: number
+            stock:
+              type: integer
+            title:
+              type: string
+            year:
+              type: integer
+          type: object
+        type: array
+      metadata:
+        $ref: '#/definitions/contract.Metadata'
+    type: object
+  contract.ResGameGetByID:
+    properties:
+      game:
+        properties:
+          description:
+            type: string
+          game_id:
+            type: integer
+          genres:
+            items:
+              type: string
+            type: array
+          price:
+            type: number
+          stock:
+            type: integer
+          title:
+            type: string
+          year:
+            type: integer
+        type: object
+    type: object
+  contract.ResOrderPay:
+    properties:
+      order:
+        properties:
+          created_at:
+            type: string
+          order_details:
+            items:
+              properties:
+                game:
+                  properties:
+                    description:
+                      type: string
+                    game_id:
+                      type: integer
+                    genres:
+                      items:
+                        type: string
+                      type: array
+                    price:
+                      type: number
+                    title:
+                      type: string
+                    year:
+                      type: integer
+                  type: object
+                quantity:
+                  type: integer
+                sub_total:
+                  type: number
+              type: object
+            type: array
+          order_id:
+            type: integer
+          payment:
+            properties:
+              invoice_url:
+                type: string
+              payment_method:
+                type: string
+              status:
+                type: string
+            type: object
+          status:
+            type: string
+          total_price:
+            type: number
+          updated_at:
+            type: string
+          user:
+            properties:
+              address:
+                type: string
+              email:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              phone:
+                type: string
+              user_id:
+                type: integer
+            required:
+            - address
+            - phone
+            type: object
+        type: object
+    type: object
+  contract.ResResendActivationToken:
+    properties:
+      message:
+        type: string
+    type: object
+  contract.ResUserActivated:
+    properties:
+      user:
+        properties:
+          activated:
+            type: boolean
+          address:
+            type: string
+          deposit:
+            type: number
+          email:
+            type: string
+          first_name:
+            type: string
+          last_name:
+            type: string
+          phone:
+            type: string
+          user_id:
+            type: integer
+        required:
+        - address
+        - phone
+        type: object
+    type: object
+  contract.ResUserDeposit:
+    properties:
+      message:
+        type: string
+    type: object
+  contract.ResUserLogin:
+    properties:
+      auhentication_token:
+        properties:
+          expiry:
+            type: string
+          token:
+            type: string
+        type: object
+    type: object
+  contract.ResUserRegister:
+    properties:
+      user:
+        properties:
+          activated:
+            type: boolean
+          address:
+            type: string
+          deposit:
+            type: number
+          email:
+            type: string
+          first_name:
+            type: string
+          last_name:
+            type: string
+          phone:
+            type: string
+          user_id:
+            type: integer
+        required:
+        - address
+        - phone
+        type: object
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: ucokkocu411@gmail.com
+    name: ucok-man
+  description: Documentation for PixelRental API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: PixelRental API
+  version: "1.0"
+paths:
+  /carts:
+    get:
+      consumes:
+      - application/json
+      description: Get all available carts record
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResGameGetAll'
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get all carts
+      tags:
+      - carts
+    post:
+      consumes:
+      - application/json
+      description: Create new carts record
+      parameters:
+      - description: Create Cart
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqCartCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/contract.ResCartCreate'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Create carts
+      tags:
+      - carts
+  /carts/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete carts record
+      parameters:
+      - description: cart id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResCartDelete'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Delete carts
+      tags:
+      - carts
+    put:
+      consumes:
+      - application/json
+      description: Update carts record
+      parameters:
+      - description: cart id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Cart
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqCartUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResCartUpdate'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Update carts
+      tags:
+      - carts
+  /carts/estimate:
+    get:
+      consumes:
+      - application/json
+      description: Get estimation calculated carts record
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResCartEstimate'
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get calculated carts
+      tags:
+      - carts
+  /games:
+    get:
+      consumes:
+      - application/json
+      description: Get all available games record
+      parameters:
+      - description: game title
+        in: query
+        name: title
+        type: string
+      - description: game genres
+        in: query
+        name: genres
+        type: string
+      - description: sorting param
+        in: query
+        name: sort
+        type: string
+      - description: current page
+        in: query
+        name: page
+        type: string
+      - description: page size param
+        in: query
+        name: page_size
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResGameGetAll'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get all games
+      tags:
+      - games
+  /games/:id:
+    get:
+      consumes:
+      - application/json
+      description: Getting info of games record
+      parameters:
+      - description: games id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResGameGetByID'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get games by id
+      tags:
+      - games
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Get all available order record
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResCartUpdate'
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get all order
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: Create new order record
+      parameters:
+      - description: Create Order
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqOrderPay'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/contract.ResOrderPay'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Create order
+      tags:
+      - orders
+  /users/activated:
+    post:
+      consumes:
+      - application/json
+      description: Activate registered user record
+      parameters:
+      - description: Activation Token
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqUserActivated'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResUserActivated'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Activate user record
+      tags:
+      - users
+  /users/deposit:
+    post:
+      consumes:
+      - application/json
+      description: Top up saldo user record
+      parameters:
+      - description: Deposit Saldo
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqUserDeposit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResUserDeposit'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Deposit saldo user
+      tags:
+      - users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user record
+      parameters:
+      - description: Login User
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqUserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResUserLogin'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Login user
+      tags:
+      - users
+  /users/me:
+    get:
+      consumes:
+      - application/json
+      description: Get info of login user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResUserDeposit'
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Get profile user
+      tags:
+      - users
+  /users/reactivated:
+    post:
+      consumes:
+      - application/json
+      description: Resending new activation token user
+      parameters:
+      - description: Email User
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqUserReactivate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/contract.ResResendActivationToken'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Resend activation token
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Create new user record
+      parameters:
+      - description: Create User
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/contract.ReqUserRegister'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/contract.ResUserRegister'
+        "400":
+          description: Bad Request
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                type: object
+            type: object
+      summary: Create user
+      tags:
+      - users
+swagger: "2.0"

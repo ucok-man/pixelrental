@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"github.com/ucok-man/pixelrental/internal/serializer"
 	"github.com/ucok-man/pixelrental/internal/validator"
 )
@@ -19,6 +20,7 @@ func (app *Application) routes() http.Handler {
 	root.Use(app.withLogger())
 	root.Use(app.withRateLimit)
 
+	router.GET("/swagger/*", echoSwagger.WrapHandler)
 	root.GET("/healthcheck", app.healthcheckHandler)
 
 	games := root.Group("/games")

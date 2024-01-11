@@ -13,6 +13,18 @@ import (
 	"github.com/ucok-man/pixelrental/internal/repo"
 )
 
+// carts godoc
+// @Tags carts
+// @Summary Get all carts
+// @Description Get all available carts record
+// @Accept  json
+// @Produce json
+// @Success 200 {object} contract.ResGameGetAll
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /carts [get]
 func (app *Application) cartGetAllHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
@@ -29,6 +41,21 @@ func (app *Application) cartGetAllHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, &response)
 }
 
+// carts godoc
+// @Tags carts
+// @Summary Create carts
+// @Description Create new carts record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqCartCreate true "Create Cart"
+// @Success 201 {object} contract.ResCartCreate
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /carts [post]
 func (app *Application) cartCreateHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
@@ -80,9 +107,24 @@ func (app *Application) cartCreateHandler(ctx echo.Context) error {
 	}
 	response.Message = "success creating cart"
 
-	return ctx.JSON(http.StatusOK, &response)
+	return ctx.JSON(http.StatusCreated, &response)
 }
 
+// carts godoc
+// @Tags carts
+// @Summary Delete carts
+// @Description Delete carts record
+// @Accept  json
+// @Produce json
+// @Param id path int true "cart id"
+// @Success 200 {object} contract.ResCartDelete
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 404 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /carts/:id [delete]
 func (app *Application) cartDeleteHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 	cartid, err := app.getParamId(ctx)
@@ -114,6 +156,23 @@ func (app *Application) cartDeleteHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, &response)
 }
 
+// carts godoc
+// @Tags carts
+// @Summary Update carts
+// @Description Update carts record
+// @Accept  json
+// @Produce json
+// @Param id path int true "cart id"
+// @Param payload body contract.ReqCartUpdate true "Update Cart"
+// @Success 200 {object} contract.ResCartUpdate
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 404 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /carts/:id [put]
 func (app *Application) cartUpdateHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
@@ -167,6 +226,19 @@ func (app *Application) cartUpdateHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, response)
 }
 
+// carts godoc
+// @Tags carts
+// @Summary Get calculated carts
+// @Description Get estimation calculated carts record
+// @Accept  json
+// @Produce json
+// @Success 200 {object} contract.ResCartEstimate
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /carts/estimate [get]
 func (app *Application) cartEstimateHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 

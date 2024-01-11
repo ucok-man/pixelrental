@@ -124,26 +124,26 @@ func (app *Application) withLogin(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		authorizationHeader := ctx.Request().Header.Get("Authorization")
 		if authorizationHeader == "" {
-			return app.ErrInvalidCredentials(ctx)
+			return app.ErrInvalidAuthenticationToken(ctx)
 		}
 
 		headerParts := strings.Split(authorizationHeader, " ")
 		if len(headerParts) != 2 || headerParts[0] != "Bearer" {
-			return app.ErrInvalidCredentials(ctx)
+			return app.ErrInvalidAuthenticationToken(ctx)
 		}
 		tokenstr := headerParts[1]
 
 		var claim jwt.JWTClaim
 		err := jwt.DecodeToken(tokenstr, &claim, app.config.Jwt.Secret)
 		if err != nil {
-			return app.ErrInvalidCredentials(ctx)
+			return app.ErrInvalidAuthenticationToken(ctx)
 		}
 
 		user, err := app.repo.User.GetByID(claim.UserID)
 		if err != nil {
 			switch {
 			case errors.Is(err, repo.ErrRecordNotFound):
-				return app.ErrInvalidCredentials(ctx)
+				return app.ErrInvalidAuthenticationToken(ctx)
 			default:
 				return app.ErrInternalServer(ctx, err)
 			}

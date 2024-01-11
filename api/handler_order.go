@@ -11,6 +11,18 @@ import (
 	"github.com/ucok-man/pixelrental/internal/repo"
 )
 
+// orders godoc
+// @Tags orders
+// @Summary Get all order
+// @Description Get all available order record
+// @Accept  json
+// @Produce json
+// @Success 200 {object} contract.ResCartUpdate
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /orders [get]
 func (app *Application) orderGetAllHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
@@ -26,11 +38,25 @@ func (app *Application) orderGetAllHandler(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, response)
 }
 
+// orders godoc
+// @Tags orders
+// @Summary Create order
+// @Description Create new order record
+// @Accept  json
+// @Produce json
+// @Param payload body contract.ReqOrderPay true "Create Order"
+// @Success 201 {object} contract.ResOrderPay
+// @Failure 429 {object} object{error=object{message=string}}
+// @Failure 403 {object} object{error=object{message=string}}
+// @Failure 401 {object} object{error=object{message=string}}
+// @Failure 400 {object} object{error=object{message=string}}
+// @Failure 422 {object} object{error=object{message=string}}
+// @Failure 500 {object} object{error=object{message=string}}
+// @Router /orders [post]
 func (app *Application) orderPayHandler(ctx echo.Context) error {
 	cu := app.getCurrentUser(ctx)
 
 	var input contract.ReqOrderPay
-
 	if err := ctx.Bind(&input); err != nil {
 		return app.ErrBadRequest(ctx, err)
 	}
