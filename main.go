@@ -18,7 +18,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8080
+// @host pixelrental-production.up.railway.app:8080
 // @BasePath /v1
 func main() {
 	if err := api.New().Serve(); err != nil {
