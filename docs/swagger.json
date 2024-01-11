@@ -14,7 +14,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8080",
+    "host": "pixelrental-production.up.railway.app:8080",
     "basePath": "/v1",
     "paths": {
         "/carts": {

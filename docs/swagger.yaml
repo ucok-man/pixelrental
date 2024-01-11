@@ -371,7 +371,7 @@ definitions:
         - phone
         type: object
     type: object
-host: localhost:8080
+host: pixelrental-production.up.railway.app:8080
 info:
   contact:
     email: ucokkocu411@gmail.com
